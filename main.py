@@ -1,5 +1,5 @@
 def main():
-    print("Hello from calculate-pi!")
+    print("konnnichiha")
 
 
 if __name__ == "__main__":
