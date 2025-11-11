@@ -1,5 +1,5 @@
 import numpy as np
-from main import approximate_pi
+from main import Rectangle
 
 def test_pi_approximation_accuracy():
     """
@@ -10,7 +10,7 @@ def test_pi_approximation_accuracy():
     n_intervals = 1_000_000
 
     # πを近似
-    pi_estimate = approximate_pi(n_intervals)
+    pi_estimate = Rectangle(n_intervals)
 
     # numpyの真の値
     pi_true = np.pi
