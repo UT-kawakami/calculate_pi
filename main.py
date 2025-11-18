@@ -2,8 +2,8 @@ import numpy as np
 
 def rectangle_integration(num_intervals: int) -> float:
     """
-    長方形近似による π の近似計算
-    区間 [0,1] を num_intervals 等分し、関数 sqrt(1-x^2) の面積を計算
+    長方形近似による π の近似計算を行う
+    区間 [0,1] を num_intervals 等分し、関数 sqrt(1-x^2) の面積を計算を行う
     """
     x_values = np.arange(num_intervals) / num_intervals
     y_values = np.sqrt(1 - x_values**2)
@@ -12,7 +12,7 @@ def rectangle_integration(num_intervals: int) -> float:
 
 def trapezoid_integration(num_intervals: int) -> float:
     """
-    台形近似による π の近似計算
+    台形近似による π の近似計算を行う
     """
     x_values = np.linspace(0, 1, num_intervals + 1)
     y_values = np.sqrt(1 - x_values**2)
@@ -22,7 +22,7 @@ def trapezoid_integration(num_intervals: int) -> float:
 
 def simpson_integration(num_intervals: int) -> float:
     """
-    シンプソン則による π の近似計算
+    シンプソン則による π の近似計算を行う
     num_intervals は偶数である必要があります
     """
     if num_intervals % 2 != 0:
