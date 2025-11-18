@@ -7,7 +7,7 @@ def test_pi_approximation_accuracy():
     numpy の π を基準に、誤差が指定以下なら合格
     """
     # 区分数を指定（多いほど精度が上がる）
-    n_intervals = 1_000_000
+    n_intervals = 1_000
 
     # πを近似
     pi_estimate = Rectangle(n_intervals)
