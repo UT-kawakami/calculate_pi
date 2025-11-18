@@ -1,48 +1,49 @@
 import numpy as np
 
-# -------------------------------
-# 長方形近似
-# -------------------------------
-def Rectangle(N):
-    x = np.arange(N) / N
-    y = np.sqrt(1 - x**2)
-    return 4 * np.sum(y) / N
+def rectangle_integration(num_intervals: int) -> float:
+    """
+    長方形近似による π の近似計算
+    区間 [0,1] を num_intervals 等分し、関数 sqrt(1-x^2) の面積を計算
+    """
+    x_values = np.arange(num_intervals) / num_intervals
+    y_values = np.sqrt(1 - x_values**2)
+    area = 4 * np.sum(y_values) / num_intervals
+    return area
 
-# -------------------------------
-# 台形近似
-# -------------------------------
-def Trapezoid(N):
-    x = np.linspace(0, 1, N+1)
-    y = np.sqrt(1 - x**2)
-    h = 1 / N
-    integral = (h/2) * (y[0] + 2*np.sum(y[1:N]) + y[N])
-    return 4 * integral
+def trapezoid_integration(num_intervals: int) -> float:
+    """
+    台形近似による π の近似計算
+    """
+    x_values = np.linspace(0, 1, num_intervals + 1)
+    y_values = np.sqrt(1 - x_values**2)
+    step = 1 / num_intervals
+    area = (step / 2) * (y_values[0] + 2 * np.sum(y_values[1:-1]) + y_values[-1])
+    return 4 * area
 
-# -------------------------------
-# シンプソン則
-# -------------------------------
-def Simpson(N):
-    if N % 2 == 1:
-        raise ValueError("Simpson の公式では N は偶数である必要があります")
-    
-    x = np.linspace(0, 1, N+1)
-    y = np.sqrt(1 - x**2)
-    h = 1 / N
+def simpson_integration(num_intervals: int) -> float:
+    """
+    シンプソン則による π の近似計算
+    num_intervals は偶数である必要があります
+    """
+    if num_intervals % 2 != 0:
+        raise ValueError("num_intervals must be even for Simpson's rule")
 
-    # 奇数インデックスの値は4倍
-    odd_sum = np.sum(y[1:N:2])
-    # 偶数インデックスの値は2倍
-    even_sum = np.sum(y[2:N-1:2])
+    x_values = np.linspace(0, 1, num_intervals + 1)
+    y_values = np.sqrt(1 - x_values**2)
+    step = 1 / num_intervals
 
-    integral = (h/3) * (y[0] + 4*odd_sum + 2*even_sum + y[N])
-    return 4 * integral
+    odd_sum = np.sum(y_values[1:num_intervals:2])
+    even_sum = np.sum(y_values[2:num_intervals-1:2])
 
-# -------------------------------
-# 動作確認
-# -------------------------------
+    area = (step / 3) * (y_values[0] + 4 * odd_sum + 2 * even_sum + y_values[-1])
+    return 4 * area
+
+def main():
+    intervals = 10_000
+    print(f"Rectangle ({intervals} intervals): {rectangle_integration(intervals)}")
+    print(f"Trapezoid ({intervals} intervals): {trapezoid_integration(intervals)}")
+    print(f"Simpson   ({intervals} intervals): {simpson_integration(intervals)}")
+    print(f"NumPy π: {np.pi}")
+
 if __name__ == "__main__":
-    N = 10000
-    print("Rectangle(10000) =", Rectangle(N))
-    print("Trapezoid(10000) =", Trapezoid(N))
-    print("Simpson(10000)   =", Simpson(N))
-    print("NumPy π           =", np.pi)
+    main()
