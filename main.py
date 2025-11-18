@@ -41,8 +41,8 @@ def Simpson(N):
 # 動作確認
 # -------------------------------
 if __name__ == "__main__":
-    N = 10000
-    print("Rectangle(10000) =", Rectangle(N))
-    print("Trapezoid(10000) =", Trapezoid(N))
-    print("Simpson(10000)   =", Simpson(N))
+    N = 100000
+    print("Rectangle(100000) =", Rectangle(N))
+    print("Trapezoid(100000) =", Trapezoid(N))
+    print("Simpson(100000)   =", Simpson(N))
     print("NumPy π           =", np.pi)
