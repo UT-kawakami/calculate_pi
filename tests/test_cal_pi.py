@@ -1,25 +1,33 @@
 import numpy as np
-from main import Rectangle
+from main import Rectangle, Trapezoid
 
-def test_pi_approximation_accuracy():
+def test_rectangle_pi_accuracy():
     """
-    区分求積法による円周率近似の精度テスト
-    numpy の π を基準に、誤差が指定以下なら合格
+    長方形近似(Rectangle) による π の精度テスト
     """
-    # 区分数を指定（多いほど精度が上がる）
-    n_intervals = 1_000
+    n_intervals = 10_000
 
-    # πを近似
     pi_estimate = Rectangle(n_intervals)
-
-    # numpyの真の値
     pi_true = np.pi
-
-    # 誤差
     error = abs(pi_estimate - pi_true)
 
-    # 許容誤差（区分数に応じて調整可能）
+    # 長方形近似は O(1/N) 精度なので少し緩めに
+    tolerance = 1e-4
+
+    assert error < tolerance, f"Rectangle 法の誤差が許容値を超えています: {error}"
+
+
+def test_trapezoid_pi_accuracy():
+    """
+    台形近似(Trapezoid) による π の精度テスト
+    """
+    n_intervals = 10_000
+
+    pi_estimate = Trapezoid(n_intervals)
+    pi_true = np.pi
+    error = abs(pi_estimate - pi_true)
+
+    # 台形法は O(1/N^2) なので非常に精度が高い
     tolerance = 1e-6
 
-    # テスト条件
-    assert error < tolerance, f"誤差が許容値を超えています: {error}"
+    assert error < tolerance, f"Trapezoid 法の誤差が許容値を超えています: {error}"
